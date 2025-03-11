@@ -2,16 +2,18 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Form from "react-bootstrap/Form";
+import { useContext } from "react";
+import { Context } from "../App.tsx";
 
-function LivBar(props: { theme: any }) {
-  if (props.theme == undefined) {
-    props.theme = "light";
-  }
+function LivBar() {
+  const State = useContext(Context);
+
   return (
     <Navbar
       expand="lg"
-      className="bg-body-tertiary"
-      data-bs-theme={props.theme}
+      className="bg-body-tertiary justify-content-between"
+      data-bs-theme={State.value}
     >
       <Container>
         <Navbar.Brand href="#home">LIV CVL</Navbar.Brand>
@@ -31,6 +33,19 @@ function LivBar(props: { theme: any }) {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
+          </Nav>
+          <Nav>
+            <Form>
+              <Form.Check // prettier-ignore
+                data-bs-theme={State.value}
+                type="switch"
+                id="custom-switch"
+                label="Dark Mode"
+                onChange={(e) =>
+                  State.setter(e.target.checked ? "dark" : "light")
+                }
+              />
+            </Form>
           </Nav>
         </Navbar.Collapse>
       </Container>

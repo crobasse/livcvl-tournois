@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import Row from "../Components/Row";
+import MatchesContainer from "../Components/MatchesContainer";
 
 function Home() {
   return (
     <div>
       <Suspense fallback={<h1>Loading...</h1>}>
         <h1>Home Page</h1>
-        <Row />
+        <MatchesContainer />
       </Suspense>
     </div>
   );

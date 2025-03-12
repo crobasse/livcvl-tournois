@@ -1,47 +1,98 @@
-import { Suspense, useEffect, useState } from "react";
-import getData from "../Utils/getData";
-import { ListGroup } from "react-bootstrap";
-import fetchData from "../Utils/getData";
+import { ListGroup, Table } from "react-bootstrap";
+import React, { useState, Suspense, useEffect, useContext } from "react";
+import { postData } from "../services/ApiService";
+import { Match } from "../Utils/interfaces";
+import { Context } from "../App";
 
-const MatchesContainer = () => {
-  let [data, setData]: [any, Function] = useState(null);
+const MatchesContainer: React.FC = () => {
+  const State = useContext(Context);
+
+  const [response, setResponse] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = { key: "value" }; // Données à envoyer
+      const result = await postData(
+        "http://localhost:90/api/matches/match",
+        data
+      );
+      setResponse(result);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const controller = new AbortController();
-
-    const interval = fetchData(
-      "http://localhost:90/api/matches/match",
-      {}
-    ).then((result) => {
-      const interval = setTimeout(() => {
-        setData(result);
-        return interval;
-      }, 3000);
-    });
-
-    return () => {
-      controller.abort();
-      clearTimeout(interval);
-    };
+    fetchData();
   }, []);
 
   return (
-    <>
-      {"matches" in data
-        ? data.matches.map((breakpoint: any) => (
-            <ListGroup
-              key={breakpoint}
-              horizontal={breakpoint}
-              className="my-2"
-            >
-              <ListGroup.Item>This ListGroup</ListGroup.Item>
-              <ListGroup.Item>renders horizontally</ListGroup.Item>
-              <ListGroup.Item>on {breakpoint}</ListGroup.Item>
-              <ListGroup.Item>and above!</ListGroup.Item>
-            </ListGroup>
-          ))
-        : "No data"}
-    </>
+    <Suspense
+      fallback={
+        <tr>
+          <td>
+            <span>Chargement...</span>
+          </td>
+        </tr>
+      }
+    >
+      <div>
+        <Table responsive="sm" data-bs-theme={State.value}>
+          <thead>
+            <tr>
+              <th>Équipe 1</th>
+              <th>Équipe 2</th>
+              <th>Date</th>
+              <th>Score</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              <tr>
+                <td>
+                  {loading}
+                  <span>Chargement...</span>
+                </td>
+              </tr>
+            }
+            {
+              <tr>
+                <td>
+                  {error}
+                  <span style={{ color: "red" }}>{error}</span>
+                </td>
+              </tr>
+            }
+            {response ? (
+              response.matches.map((match: Match) => (
+                <tr>
+                  <td>{match.teamHome.name}</td>
+                  <td>{match.teamAway.name}</td>
+                  <td>{match.dateMatch}</td>
+                  <td>
+                    {match.scoreHome} - {match.scoreAway}
+                  </td>
+                  <td>{match.status}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td>
+                  <span>Aucune donnée</span>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </div>
+    </Suspense>
   );
 };
 

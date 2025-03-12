@@ -1,0 +1,20 @@
+interface Team {
+  id: number;
+  name: string;
+}
+
+interface Match {
+  id: number;
+  teamHome: Team;
+  teamAway: Team;
+  dateMatch: string;
+  scoreHome: number | null;
+  scoreAway: number | null;
+  status: "scheduled" | "in_progress" | "finished";
+}
+
+interface Matches {
+  matches: Match[];
+}
+
+export type { Team, Match, Matches };

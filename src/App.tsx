@@ -1,8 +1,7 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useState } from "react";
 import LivBar from "./Components/LivBar";
 import LivState from "./classes/LivState";
 import Home from "./Pages/Home";
-import DataFetcher from "./Components/DataFetcher";
 
 export const Context = React.createContext(new LivState(null, () => {}));
 

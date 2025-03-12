@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import ErrorBoundary from "../Components/ErrorBoundary";
 import MatchesContainer from "../Components/MatchesContainer";
 

@@ -35,7 +35,7 @@ function LivBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Form>
+            <Form data-bs-theme={State.value}>
               <Form.Check // prettier-ignore
                 data-bs-theme={State.value}
                 type="switch"

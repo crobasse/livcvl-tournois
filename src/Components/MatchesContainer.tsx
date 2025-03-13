@@ -3,6 +3,7 @@ import React, { useState, Suspense, useEffect, useContext } from "react";
 import { postData } from "../services/ApiService";
 import { Match } from "../Utils/interfaces";
 import { Context } from "../App";
+import { format } from "date-fns";
 
 const MatchesContainer: React.FC = () => {
   const State = useContext(Context);
@@ -16,10 +17,7 @@ const MatchesContainer: React.FC = () => {
     setError(null);
     try {
       const data = { key: "value" }; // Données à envoyer
-      const result = await postData(
-        "http://localhost:90/api/matches/match",
-        data
-      );
+      const result = await postData("http://livcvl/api/matches/match", data);
       setResponse(result);
     } catch (err: any) {
       setError(err.message);
@@ -27,6 +25,9 @@ const MatchesContainer: React.FC = () => {
       setLoading(false);
     }
   };
+
+  var loadingMessage = "Chargement...";
+  var errorMessage = "Erreur lors de la requête API";
 
   useEffect(() => {
     fetchData();
@@ -37,7 +38,7 @@ const MatchesContainer: React.FC = () => {
       fallback={
         <tr>
           <td>
-            <span>Chargement...</span>
+            <span>{loadingMessage}</span>
           </td>
         </tr>
       }
@@ -46,49 +47,50 @@ const MatchesContainer: React.FC = () => {
         <Table responsive="sm" data-bs-theme={State.value}>
           <thead>
             <tr>
-              <th>Équipe 1</th>
-              <th>Équipe 2</th>
+              <th>Équipes</th>
               <th>Date</th>
               <th>Score</th>
               <th>State</th>
             </tr>
           </thead>
           <tbody>
-            {
+            {loading && (
               <tr>
                 <td>
-                  {loading}
-                  <span>Chargement...</span>
-                </td>
-              </tr>
-            }
-            {
-              <tr>
-                <td>
-                  {error}
-                  <span style={{ color: "red" }}>{error}</span>
-                </td>
-              </tr>
-            }
-            {response ? (
-              response.matches.map((match: Match) => (
-                <tr>
-                  <td>{match.teamHome.name}</td>
-                  <td>{match.teamAway.name}</td>
-                  <td>{match.dateMatch}</td>
-                  <td>
-                    {match.scoreHome} - {match.scoreAway}
-                  </td>
-                  <td>{match.status}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td>
-                  <span>Aucune donnée</span>
+                  <span>{loadingMessage}</span>
                 </td>
               </tr>
             )}
+            {error && (
+              <tr>
+                <td>
+                  <span style={{ color: "red" }}>
+                    {errorMessage}: {error}
+                  </span>
+                </td>
+              </tr>
+            )}
+            {response
+              ? response.matches.map((match: Match) => {
+                  var date = Date.parse(match.dateMatch);
+                  <tr key={match.id}>
+                    <td>
+                      {match.teamHome.name} - {match.teamAway.name}
+                    </td>
+                    <td>{match.dateMatch}</td>
+                    <td>
+                      {match.scoreHome} - {match.scoreAway}
+                    </td>
+                    <td>{match.status}</td>
+                  </tr>;
+                })
+              : !loading && (
+                  <tr>
+                    <td>
+                      <span>Aucune donnée</span>
+                    </td>
+                  </tr>
+                )}
           </tbody>
         </Table>
       </div>

@@ -8,10 +8,14 @@ export const Context = React.createContext(new LivState(null, () => {}));
 function App() {
   const [theme, setTheme] = useState("light");
 
+  document.body.setAttribute("data-bs-theme", theme);
+
   return (
     <Context.Provider value={new LivState(theme, setTheme)}>
-      <LivBar />
-      <Home data-bs-theme={theme} />
+      <div data-bs-theme={theme}>
+        <LivBar />
+        <Home data-bs-theme={theme} />
+      </div>
     </Context.Provider>
   );
 }

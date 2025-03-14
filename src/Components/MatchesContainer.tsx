@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 import React, { useState, Suspense, useEffect, useContext } from "react";
 import { postData } from "../services/ApiService";
-import { Match } from "../Utils/interfaces";
+import { Match, Status } from "../Utils/interfaces";
 import { Context } from "../App";
 import { format } from "date-fns";
 
@@ -40,6 +40,9 @@ const MatchesContainer: React.FC = () => {
           <td>
             <span>{loadingMessage}</span>
           </td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       }
     >
@@ -50,7 +53,7 @@ const MatchesContainer: React.FC = () => {
               <th>Équipes</th>
               <th>Date</th>
               <th>Score</th>
-              <th>State</th>
+              <th>État</th>
             </tr>
           </thead>
           <tbody>
@@ -59,6 +62,9 @@ const MatchesContainer: React.FC = () => {
                 <td>
                   <span>{loadingMessage}</span>
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
             )}
             {error && (
@@ -68,21 +74,29 @@ const MatchesContainer: React.FC = () => {
                     {errorMessage}: {error}
                   </span>
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
             )}
             {response
               ? response.matches.map((match: Match) => {
-                  var date = Date.parse(match.dateMatch);
-                  <tr key={match.id}>
-                    <td>
-                      {match.teamHome.name} - {match.teamAway.name}
-                    </td>
-                    <td>{match.dateMatch}</td>
-                    <td>
-                      {match.scoreHome} - {match.scoreAway}
-                    </td>
-                    <td>{match.status}</td>
-                  </tr>;
+                  let date = new Date(
+                    Date.parse(match.dateMatch.replace(/-/g, "/"))
+                  );
+                  return (
+                    <tr key={match.id} className="match-line">
+                      <td>
+                        {match.teamHome.name} - {match.teamAway.name}
+                      </td>
+                      <td>{date.toLocaleDateString()}</td>
+                      <td>
+                        {match.scoreHome == null ? 0 : match.scoreHome} -{" "}
+                        {match.scoreAway == null ? 0 : match.scoreAway}
+                      </td>
+                      <td>{Status[match.status]}</td>
+                    </tr>
+                  );
                 })
               : !loading && (
                   <tr>

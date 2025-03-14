@@ -13,8 +13,15 @@ interface Match {
   status: "scheduled" | "in_progress" | "finished";
 }
 
+enum Status {
+  scheduled = "Programmé",
+  in_progress = "En cours",
+  finished = "Terminé",
+}
+
 interface Matches {
   matches: Match[];
 }
 
 export type { Team, Match, Matches };
+export { Status };

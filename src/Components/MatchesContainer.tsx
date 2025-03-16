@@ -3,7 +3,6 @@ import React, { useState, Suspense, useEffect, useContext } from "react";
 import { postData } from "../services/ApiService";
 import { Match, Status } from "../Utils/interfaces";
 import { Context } from "../App";
-import { format } from "date-fns";
 
 const MatchesContainer: React.FC = () => {
   const State = useContext(Context);
@@ -16,8 +15,11 @@ const MatchesContainer: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = { key: "value" }; // Données à envoyer
-      const result = await postData("http://livcvl/api/matches/match", data);
+      const data = {}; // Données à envoyer
+      const result = await postData(
+        "https://api.livcvl.fr/api/matches/match.php",
+        data
+      );
       setResponse(result);
     } catch (err: any) {
       setError(err.message);

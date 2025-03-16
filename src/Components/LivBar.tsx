@@ -3,38 +3,64 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../App.tsx";
 import LoginModal from "./LoginModal.tsx";
+import RegisterModal from "./RegisterModal.tsx";
+import {
+  setSessionTheme,
+  sessionValid,
+  sessionLogout,
+} from "../Utils/session.tsx";
 
 function LivBar() {
   const State = useContext(Context);
 
   let [loginModal, setLoginModal] = useState(false);
+  let [registerModal, setRegisterModal] = useState(false);
+
+  let [isSessionValid, setSessionValid] = useState(false);
+
+  useEffect(() => {
+    setSessionValid(sessionValid());
+  }, []);
 
   return (
     <>
       <LoginModal show={loginModal} onHide={() => setLoginModal(false)} />
+      <RegisterModal
+        show={registerModal}
+        onHide={() => setRegisterModal(false)}
+      />
       <Navbar
         expand="lg"
         className="bg-body-tertiary justify-content-between"
         data-bs-theme={State.value}
       >
         <Container>
-          <Navbar.Brand href="#home">LIV CVL</Navbar.Brand>
+          <Navbar.Brand href="">LIV CVL</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Accueil</Nav.Link>
-              <Nav.Link href="#link">Matchs</Nav.Link>
-              <Nav.Link href="#link" onClick={() => setLoginModal(true)}>
-                Se Connecter
-              </Nav.Link>
+              <Nav.Link href="">Accueil</Nav.Link>
+              <Nav.Link href="">Matchs</Nav.Link>
+              {!isSessionValid ? (
+                <>
+                  <Nav.Link href="" onClick={() => setLoginModal(true)}>
+                    Se Connecter
+                  </Nav.Link>
+                  <Nav.Link href="" onClick={() => setRegisterModal(true)}>
+                    S'inscrire
+                  </Nav.Link>
+                </>
+              ) : (
+                <Nav.Link href="" onClick={() => sessionLogout()}>
+                  Se déconnecter
+                </Nav.Link>
+              )}
               <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
+                <NavDropdown.Item href="">Action</NavDropdown.Item>
+                <NavDropdown.Item href="">Another action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">
                   Something
                 </NavDropdown.Item>
@@ -51,9 +77,10 @@ function LivBar() {
                   type="switch"
                   id="custom-switch"
                   label="Dark Mode"
-                  onChange={(e) =>
-                    State.setter(e.target.checked ? "dark" : "light")
-                  }
+                  onChange={(e) => {
+                    State.setter(e.target.checked ? "dark" : "light");
+                    setSessionTheme(e.target.checked ? "dark" : "light");
+                  }}
                 />
               </Form>
             </Nav>

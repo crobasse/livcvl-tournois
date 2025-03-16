@@ -3,6 +3,7 @@ import ErrorBoundary from "../Components/ErrorBoundary";
 import MatchesContainer from "../Components/MatchesContainer";
 import { Context } from "../App";
 import "../scss/Home.scss";
+import { Alert } from "react-bootstrap";
 
 function Home() {
   const State = useContext(Context);

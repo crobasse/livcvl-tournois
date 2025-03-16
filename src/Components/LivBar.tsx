@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import { useContext, useEffect, useState } from "react";
-import { Context } from "../App.tsx";
+import { Context, ContextConnected } from "../App.tsx";
 import LoginModal from "./LoginModal.tsx";
 import RegisterModal from "./RegisterModal.tsx";
 import {
@@ -15,14 +15,13 @@ import {
 
 function LivBar() {
   const State = useContext(Context);
+  const StateConnected = useContext(ContextConnected);
 
   let [loginModal, setLoginModal] = useState(false);
   let [registerModal, setRegisterModal] = useState(false);
 
-  let [isSessionValid, setSessionValid] = useState(false);
-
   useEffect(() => {
-    setSessionValid(sessionValid());
+    StateConnected.setter(sessionValid());
   }, []);
 
   return (
@@ -44,7 +43,7 @@ function LivBar() {
             <Nav className="me-auto">
               <Nav.Link href="">Accueil</Nav.Link>
               <Nav.Link href="">Matchs</Nav.Link>
-              {!isSessionValid ? (
+              {!StateConnected.value ? (
                 <>
                   <Nav.Link href="" onClick={() => setLoginModal(true)}>
                     Se Connecter
@@ -54,7 +53,14 @@ function LivBar() {
                   </Nav.Link>
                 </>
               ) : (
-                <Nav.Link href="" onClick={() => sessionLogout()}>
+                <Nav.Link
+                  href=""
+                  onClick={() => {
+                    sessionLogout();
+                    StateConnected.setter(false);
+                    location.reload();
+                  }}
+                >
                   Se déconnecter
                 </Nav.Link>
               )}

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Modal, Button, Form, InputGroup, Col, Alert } from "react-bootstrap";
 import { postData, postDataAuth } from "../services/ApiService";
 import {
@@ -7,8 +7,11 @@ import {
   isUsernameValid,
 } from "../Utils/checkers";
 import { startSession } from "../Utils/session";
+import { ContextConnected } from "../App";
 
 function RegisterModal(props: any) {
+  const StateConnected = useContext(ContextConnected);
+
   const [response, setResponse] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,6 +57,8 @@ function RegisterModal(props: any) {
         response.user.email,
         response.user.darkTheme == 0 ? "light" : "dark"
       );
+      StateConnected.setter(true);
+      props.onHide();
     }
   }
 

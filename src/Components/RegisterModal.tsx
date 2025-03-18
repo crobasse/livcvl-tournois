@@ -62,6 +62,17 @@ function RegisterModal(props: any) {
     }
   }
 
+  function RegisterUser() {
+    setFormSubmitted(true);
+    if (userValid && emailValid && passwordValid) {
+      setShowAlert(false);
+      fetchData();
+    } else {
+      setShowAlert(true);
+      setFormError("Veuillez remplir tous les champs correctement.");
+    }
+  }
+
   return (
     <Modal
       {...props}
@@ -75,7 +86,12 @@ function RegisterModal(props: any) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            RegisterUser();
+          }}
+        >
           <Form.Group className="mb-3" controlId="loginForm.username">
             <Form.Label>Nom d'utilisateur</Form.Label>
             <InputGroup className="mb-3">
@@ -155,6 +171,7 @@ function RegisterModal(props: any) {
               ne doit pas contenir d'espaces ou d'émojis.
             </Form.Text>
           </Form.Group>
+          <Form.Control type="submit" hidden />
         </Form>
         {showAlert &&
           formSubmitted &&
@@ -175,19 +192,7 @@ function RegisterModal(props: any) {
         <Button variant="secondary" onClick={props.onHide}>
           Close
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => {
-            setFormSubmitted(true);
-            if (userValid && emailValid && passwordValid) {
-              setShowAlert(false);
-              fetchData();
-            } else {
-              setShowAlert(true);
-              setFormError("Veuillez remplir tous les champs correctement.");
-            }
-          }}
-        >
+        <Button variant="primary" onClick={() => RegisterUser()}>
           S'inscrire
         </Button>
       </Modal.Footer>

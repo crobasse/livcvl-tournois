@@ -54,6 +54,17 @@ function LoginModal(props: any) {
     }
   };
 
+  function LogUser() {
+    setFormSubmitted(true);
+    if (emailValid && passwordValid) {
+      setShowAlert(false);
+      fetchData();
+    } else {
+      setShowAlert(true);
+      setFormError("Veuillez remplir tous les champs correctement.");
+    }
+  }
+
   return (
     <Modal
       {...props}
@@ -65,12 +76,17 @@ function LoginModal(props: any) {
         <Modal.Title id="contained-modal-title-vcenter">Connexion</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            LogUser();
+          }}
+        >
           <Form.Group className="mb-3" controlId="loginForm.email">
             <Form.Label>Adresse Email</Form.Label>
             <InputGroup>
               <Form.Control
-                type="email"
+                type="text"
                 placeholder="aa00000"
                 autoFocus
                 onChange={(e) => {
@@ -106,11 +122,11 @@ function LoginModal(props: any) {
                     setPasswordValid(false);
                   }
                 }}
-                isValid={passwordValid}
                 isInvalid={!passwordValid}
               />
             </InputGroup>
           </Form.Group>
+          <Form.Control type="submit" hidden />
         </Form>
         {showAlert && formSubmitted && (!emailValid || !passwordValid) && (
           <Alert variant="danger">{formError}</Alert>
@@ -129,19 +145,7 @@ function LoginModal(props: any) {
         <Button variant="secondary" onClick={props.onHide}>
           Close
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => {
-            setFormSubmitted(true);
-            if (emailValid && passwordValid) {
-              setShowAlert(false);
-              fetchData();
-            } else {
-              setShowAlert(true);
-              setFormError("Veuillez remplir tous les champs correctement.");
-            }
-          }}
-        >
+        <Button variant="primary" onClick={() => LogUser()}>
           Se Connecter
         </Button>
       </Modal.Footer>

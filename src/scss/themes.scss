@@ -1,12 +1,6 @@
-[data-bs-theme="blue"] {
-  $white: #fff;
-  $blue: #0d6efd;
-  $blue-400: #0d6efd;
-  $blue-500: #0a58ca;
-  $blue-600: #0a48a5;
-  $blue-700: #042c5c;
-  $gray-600: #6c757d;
+@import "~bootstrap/scss/variables";
 
+[data-bs-theme="blue"] {
   --bs-body-color: var(--bs-white);
   --bs-body-color-rgb: #{to-rgb($white)};
   --bs-body-bg: var(--bs-blue);

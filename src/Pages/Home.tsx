@@ -4,6 +4,7 @@ import MatchesContainer from "../Components/MatchesContainer";
 import { Context } from "../App";
 import "../scss/Home.scss";
 import { Alert } from "react-bootstrap";
+import "../scss/themes.scss";
 
 function Home() {
   const State = useContext(Context);

@@ -53,28 +53,30 @@ function LivBar() {
                   </Nav.Link>
                 </>
               ) : (
-                <Nav.Link
-                  href=""
-                  onClick={() => {
-                    sessionLogout();
-                    StateConnected.setter(false);
-                    location.reload();
-                  }}
-                >
-                  Se déconnecter
-                </Nav.Link>
+                <>
+                  <Nav.Link
+                    href=""
+                    onClick={() => {
+                      sessionLogout();
+                      StateConnected.setter(false);
+                      location.reload();
+                    }}
+                  >
+                    Se déconnecter
+                  </Nav.Link>
+                  <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="">Action</NavDropdown.Item>
+                    <NavDropdown.Item href="">Another action</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">
+                      Something
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.4">
+                      Separated link
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               )}
-              <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
-                <NavDropdown.Item href="">Action</NavDropdown.Item>
-                <NavDropdown.Item href="">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
             </Nav>
             <Nav>
               <Form data-bs-theme={State.value}>
@@ -84,8 +86,8 @@ function LivBar() {
                   id="custom-switch"
                   label="Dark Mode"
                   onChange={(e) => {
-                    State.setter(e.target.checked ? "dark" : "light");
-                    setSessionTheme(e.target.checked ? "dark" : "light");
+                    State.setter(e.target.checked ? "blue" : "light");
+                    setSessionTheme(e.target.checked ? "blue" : "light");
                   }}
                 />
               </Form>

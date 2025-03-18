@@ -9,7 +9,7 @@ export const ContextConnected = React.createContext(
 );
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("liv-light");
   const [connected, setConnected] = useState(false);
 
   document.body.setAttribute("data-bs-theme", theme);

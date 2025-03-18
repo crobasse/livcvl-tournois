@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { Context, ContextConnected } from "../App.tsx";
 import LoginModal from "./LoginModal.tsx";
 import RegisterModal from "./RegisterModal.tsx";
+import "bootstrap/dist/css/bootstrap.css";
 import {
   setSessionTheme,
   sessionValid,
@@ -33,7 +34,7 @@ function LivBar() {
       />
       <Navbar
         expand="lg"
-        className="bg-body-tertiary justify-content-between"
+        className=" justify-content-between"
         data-bs-theme={State.value}
       >
         <Container>
@@ -86,8 +87,10 @@ function LivBar() {
                   id="custom-switch"
                   label="Dark Mode"
                   onChange={(e) => {
-                    State.setter(e.target.checked ? "blue" : "light");
-                    setSessionTheme(e.target.checked ? "blue" : "light");
+                    State.setter(e.target.checked ? "liv-dark" : "liv-light");
+                    setSessionTheme(
+                      e.target.checked ? "liv-dark" : "liv-light"
+                    );
                   }}
                 />
               </Form>

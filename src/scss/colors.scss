@@ -1,0 +1,17 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+$color-mode-type: data;
+
+@include color-mode(liv-light) {
+  .navbar {
+    color: var(--bs-red);
+    background-color: var(--bs-red);
+  }
+}
+
+@include color-mode(liv-dark) {
+  .navbar {
+    color: var(--bs-red);
+    background-color: var(--bs-red);
+  }
+}

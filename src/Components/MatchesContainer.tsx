@@ -1,5 +1,11 @@
 import { Table } from "react-bootstrap";
-import React, { useState, Suspense, useEffect, useContext } from "react";
+import React, {
+  useState,
+  Suspense,
+  useEffect,
+  useContext,
+  useMemo,
+} from "react";
 import { postData } from "../services/ApiService";
 import { Match, Status } from "../Utils/interfaces";
 import { Context } from "../App";
@@ -28,6 +34,10 @@ const MatchesContainer: React.FC = () => {
     }
   };
 
+  const matches = useMemo(() => response, [response]);
+
+  console.log("check");
+
   var loadingMessage = "Chargement...";
   var errorMessage = "Erreur lors de la requête API";
 
@@ -53,6 +63,7 @@ const MatchesContainer: React.FC = () => {
           <thead>
             <tr>
               <th>Équipes</th>
+              <th>Groupe</th>
               <th>Date</th>
               <th>Score</th>
               <th>État</th>
@@ -82,15 +93,20 @@ const MatchesContainer: React.FC = () => {
               </tr>
             )}
             {response
-              ? response.matches.map((match: Match) => {
+              ? matches.matches.map((match: Match) => {
                   let date = new Date(
                     Date.parse(match.dateMatch.replace(/-/g, "/"))
                   );
                   return (
-                    <tr key={match.id} className="match-line">
+                    <tr
+                      key={match.id}
+                      className="match-line"
+                      onClick={() => console.log(match.id)}
+                    >
                       <td>
                         {match.teamHome.name} - {match.teamAway.name}
                       </td>
+                      <td>{match.class}</td>
                       <td>{date.toLocaleDateString()}</td>
                       <td>
                         {match.scoreHome == null ? 0 : match.scoreHome} -{" "}

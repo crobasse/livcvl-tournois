@@ -34,7 +34,7 @@ function LivBar() {
       />
       <Navbar
         expand="lg"
-        className=" justify-content-between"
+        className="bg-body-tertiary justify-content-between"
         data-bs-theme={State.value}
       >
         <Container>
@@ -85,12 +85,11 @@ function LivBar() {
                   data-bs-theme={State.value}
                   type="switch"
                   id="custom-switch"
-                  label="Dark Mode"
+                  label="Mode Sombre"
+                  defaultChecked={State.value === "dark"}
                   onChange={(e) => {
-                    State.setter(e.target.checked ? "liv-dark" : "liv-light");
-                    setSessionTheme(
-                      e.target.checked ? "liv-dark" : "liv-light"
-                    );
+                    State.setter(e.target.checked ? "dark" : "light");
+                    setSessionTheme(e.target.checked ? "dark" : "light");
                   }}
                 />
               </Form>

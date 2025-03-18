@@ -5,7 +5,7 @@ import { Context } from "../App";
 import "../scss/Home.scss";
 import "../scss/colors.scss";
 
-function Home() {
+const Home = () => {
   const State = useContext(Context);
   return (
     <div data-bs-theme={State.value} className="home">
@@ -17,6 +17,6 @@ function Home() {
       </ErrorBoundary>
     </div>
   );
-}
+};
 
 export default Home;

@@ -11,6 +11,7 @@ interface Match {
   scoreHome: number | null;
   scoreAway: number | null;
   status: "scheduled" | "in_progress" | "finished";
+  class: string;
 }
 
 enum Status {

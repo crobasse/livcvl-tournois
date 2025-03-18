@@ -5,39 +5,51 @@ if (!checkConnected() || $_SESSION['user_rank'] > 5) {
 }
 
 if (isset($_POST['submit-create'])) {
-    if (isset($_POST['teamA']) && !empty($_POST['teamA']) && 
-    isset($_POST['teamB']) && !empty($_POST['teamB']) && 
-    isset($_POST['date']) && !empty($_POST['date'])) {
-        
+    if (
+        isset($_POST['teamA']) && !empty($_POST['teamA']) &&
+        isset($_POST['teamB']) && !empty($_POST['teamB']) &&
+        isset($_POST['date']) && !empty($_POST['date'])
+    ) {
+
         $createMatch = $db->prepare('INSERT INTO matchs(teamA,teamB,date) VALUE(?,?,?)');
-        $createMatch->execute(array($_POST['teamA'],$_POST['teamB'],$_POST['date']));
+        $date = new DateTimeImmutable($_POST['date']);
+        $date = $date->setTime(12, 30);
+        $createMatch->execute(array($_POST['teamA'], $_POST['teamB'], $date->format('Y-m-d H:i:s')));
 
     }
 }
 if (isset($_POST['submit-edit'])) {
-    if (isset($_POST['match-select']) && $_POST['match-select'] != '' && 
-    isset($_POST['state-select']) && $_POST['state-select'] != '') {
+    if (
+        isset($_POST['match-select']) && $_POST['match-select'] != '' &&
+        isset($_POST['state-select']) && $_POST['state-select'] != ''
+    ) {
         $editMatch = $db->prepare('UPDATE matchs SET status = ? WHERE id = ?');
-        $editMatch->execute(array($_POST['state-select'],$_POST['match-select']));
+        $editMatch->execute(array($_POST['state-select'], $_POST['match-select']));
     }
 }
 
 if (isset($_POST['submit-end'])) {
-    if (isset($_POST['match-select']) && $_POST['match-select'] != '' &&
-    isset($_POST['teamA']) && $_POST['teamA'] != '' && 
-    isset($_POST['teamB']) && $_POST['teamB'] != '') {
+    if (
+        isset($_POST['match-select']) && $_POST['match-select'] != '' &&
+        isset($_POST['teamA']) && $_POST['teamA'] != '' &&
+        isset($_POST['teamB']) && $_POST['teamB'] != ''
+    ) {
 
-        if ($_POST['teamA'] < $_POST['teamB']) { $winner = 1; }
-        else if ($_POST['teamA'] > $_POST['teamB']) { $winner = 0; }
-        else { $winner = 2; }
+        if ($_POST['teamA'] < $_POST['teamB']) {
+            $winner = 1;
+        } else if ($_POST['teamA'] > $_POST['teamB']) {
+            $winner = 0;
+        } else {
+            $winner = 2;
+        }
 
         $cotes = cotesMatch($_POST['match-select']);
 
         $editMatch = $db->prepare('UPDATE matchs SET status = 2, coef_teamA = ?, coef_teamB = ?, coef_equal = ?, winner = ?, ptsA = ?, ptsB = ? WHERE id = ?');
-        $editMatch->execute(array($cotes[0], $cotes[1], $cotes[2], $winner, $_POST['teamA'], $_POST['teamB'] ,$_POST['match-select']));
-        
-        
-        $editBetsLoses = $db->prepare("UPDATE bets SET status = 1 WHERE match_id = ? AND choice != ?");        
+        $editMatch->execute(array($cotes[0], $cotes[1], $cotes[2], $winner, $_POST['teamA'], $_POST['teamB'], $_POST['match-select']));
+
+
+        $editBetsLoses = $db->prepare("UPDATE bets SET status = 1 WHERE match_id = ? AND choice != ?");
         $editBetsLoses->execute(array(intval($_POST['match-select']), $winner));
 
         $editBetsWin = $db->prepare('UPDATE bets SET status = 2 WHERE match_id = ? AND choice = ?');
@@ -81,20 +93,20 @@ if (isset($_POST['submit-end'])) {
                 </form>
                 <form class="statusMatch subpart" method="post">
                     <h3>Modifier un match existant</h3>
-                        <div>
+                    <div>
                         <label for="match-select"><b>Choisissez un match</b></label>
                         <select name="match-select" id="match-select">
                             <?php
-                            
+
                             $getMatchs = $db->query('SELECT * FROM matchs WHERE status != 2 ORDER BY date ASC');
                             $getMatchs->execute();
-                            
+
                             $matchs = $getMatchs->fetchAll();
-                            
+
                             foreach ($matchs as $match) {
                                 echo '<option value="' . $match['id'] . '">' . $match['teamA'] . ' - ' . $match['teamB'] . '</option>';
                             }
-                            
+
                             ?>
                         </select>
                     </div>
@@ -115,33 +127,35 @@ if (isset($_POST['submit-end'])) {
                         <label for="match-select"><b>Choisissez un match</b></label>
                         <select name="match-select" id="match-select">
                             <?php
-                            
+
                             $getPlayingMatchs = $db->query('SELECT * FROM matchs WHERE status = 1');
                             $getPlayingMatchs->execute();
-                            
+
                             $pMatchs = $getPlayingMatchs->fetchAll();
-                            
+
                             foreach ($pMatchs as $match) {
                                 echo '<option value="' . $match['id'] . '">' . $match['teamA'] . ' - ' . $match['teamB'] . '</option>';
                             }
-                            
+
                             ?>
                         </select>
                         <div class="field">
                             <b>Points Équipe A</b>
                             <div>
                                 <i class="fa-solid fa-people-group"></i>
-                                <input type="number" name="teamA" id="teamA" placeholder="Entrez les points de l'équipe A">
+                                <input type="number" name="teamA" id="teamA"
+                                    placeholder="Entrez les points de l'équipe A">
                             </div>
                         </div>
                         <div class="field">
                             <b>Points Équipe B</b>
                             <div>
                                 <i class="fa-solid fa-people-group"></i>
-                                <input type="number" name="teamB" id="teamB" placeholder="Entrez les points de l'équipe B">
+                                <input type="number" name="teamB" id="teamB"
+                                    placeholder="Entrez les points de l'équipe B">
                             </div>
                         </div>
-                        
+
                     </div>
                     <input type="submit" name="submit-end" id="submit-end" value="Terminer le match">
                 </form>

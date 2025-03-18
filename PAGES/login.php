@@ -23,11 +23,11 @@
         <label>Pas encore inscrit ?</label><br>
         <a href="?page=signin" class="signup-link"><b>S'INSCRIRE</b></a><br>
         <div class="contact">
-            <a href="https://www.instagram.com/uni.ndo" target="_blank" rel="noopener noreferrer"><img class="contact-icon" src="IMGS/instagram.png" alt="" srcset=""></a>
-            <a href="mailto:unibde.ndo@gmail.com"><img class="contact-icon" src="IMGS/mail.png" alt="" srcset=""></a>
+            <a href="https://www.instagram.com/cvl_liv" target="_blank" rel="noopener noreferrer"><img
+                    class="contact-icon" src="IMGS/instagram.png" alt="" srcset=""></a>
         </div>
     </form>
-    
+
 </div>
 
 <?php
@@ -42,7 +42,7 @@ if (isset($_POST["submit"])) {
         $q->execute(['email' => $_POST["email"]]);
         $result = $q->fetch();
 
-        
+
         if ($result == true) {
             // Le Compte Existe
             $hashpassword = $result['password'];
@@ -65,23 +65,23 @@ if (isset($_POST["submit"])) {
                 // } else {
                 //     $ip = $_SERVER['REMOTE_ADDR'];
                 // }
-                
+
                 // $updateIP = $db->prepare("UPDATE users SET ip = ? WHERE id = ?");
                 // $updateIP->execute(array($ip, $result['id']));
-                
+
 
                 echo '<script>window.location = "index.php"</script>';
-                
-            }else{
+
+            } else {
                 echo '<script>badid("Mot de passe incorrect.")</script>';
             }
 
-        }else{
+        } else {
             echo '<script>badid("Email introuvable.")</script>';
         }
 
 
-    }else{
+    } else {
         echo '<script>badid("Veuillez remplir toutes les cases.")</script>';
     }
 }

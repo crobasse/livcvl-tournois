@@ -20,7 +20,7 @@ if (isset($_GET["match"])) {
     echo '<script>window.location = "'. get_base_url() . '"</script>';
 }
 ?>
-<title>Jouer - UNI</title>
+<title>Jouer - LIV</title>
 <link rel="stylesheet" href="CSS/play.css">
 <div class="container">
     <h1 class="title">Match:

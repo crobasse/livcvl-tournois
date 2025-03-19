@@ -5,7 +5,7 @@ if (!checkConnected()) {
 }
 
 ?>
-<title>Mon Profil - UNI</title>
+<title>Mon Profil - LIV</title>
 <link rel="stylesheet" href="CSS/profile.css">
 <div class="container">
     <h1>Votre profil:</h1>

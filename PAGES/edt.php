@@ -32,7 +32,7 @@ $EDT = $getEDT->fetchAll();
 
 ?>
 
-<title>Emploi du temps - UNI</title>
+<title>Emploi du temps - LIV</title>
 <link rel="stylesheet" href="CSS/edt.css">
 <div class="container">
     <table>

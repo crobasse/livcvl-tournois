@@ -1,4 +1,4 @@
-<title>Règles du jeu - UNI</title>
+<title>Règles du jeu - LIV</title>
 <link rel="stylesheet" href="CSS/rules.css">
 <div class="container">
     <h1>Règles du Tournois</h1>

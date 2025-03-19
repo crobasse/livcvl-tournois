@@ -10,7 +10,7 @@ $getMatchs->execute();
 $matchs = $getMatchs->fetchAll();
 
 ?>
-<title>Matchs - UNI</title>
+<title>Matchs - LIV</title>
 <link rel="stylesheet" href="CSS/matchs.css">
 <div class="container">
 <h1>Liste des matchs jouables</h1>

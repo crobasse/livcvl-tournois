@@ -1,4 +1,4 @@
-<title>S'inscrire - UNI</title>
+<title>S'inscrire - LIV</title>
 <link rel="stylesheet" href="CSS/signin.css">
 <div class="container">
     <form class="signin-form" action="" method="post">

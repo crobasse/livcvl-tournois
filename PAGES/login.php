@@ -1,4 +1,4 @@
-<title>Se Connecter - UNI</title>
+<title>Se Connecter - LIV</title>
 <link rel="stylesheet" href="CSS/login.css">
 <div class="container">
     <form class="login-form" method="post">

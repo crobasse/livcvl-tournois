@@ -8,7 +8,7 @@ $matchs = $getMatchs->fetchAll();
 ?>
 
 
-<title>Accueil - UNI</title>
+<title>Accueil - LIV</title>
 <link rel="stylesheet" href="CSS/matchs.css">
 <div class="container">
 

@@ -102,7 +102,7 @@ if (!checkConnected()) {
                                         echo '<span class="state-lost">Perdu</span>';
                                         break;
                                     case 2:
-                                        echo '<a href="?action=get&match=' . $value['match_id'] . '&id=' . $_SESSION['user_id'] .'" class="state-won">Gagnant</a>';
+                                        echo '<a href="?action=get&match=' . $value['match_id'] . '&id=' . $_SESSION['user_id'] .'" class="state-won">Cliquez pour récupérer</a>';
                                         break;
                                     case 3:
                                         echo '<span class="state-got">Récupéré</span>';

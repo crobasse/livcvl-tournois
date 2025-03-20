@@ -1,6 +1,6 @@
 <?php
 
-include "/home/u160780608/public_html/PHP/database.php";
+include "/home/u160780608/domains/livcvl.fr/public_html/PHP/database.php";
 global $db;
 
 date_default_timezone_set('Europe/Paris');

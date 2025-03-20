@@ -6,7 +6,7 @@ global $db;
 
 $getMatchs = $db->prepare("SELECT DISTINCT match_id FROM bets");
 $getMatchs->execute();
-$matches = $getMatchs->fetch();
+$matches = $getMatchs->fetchAll();
 
 $count = $getMatchs->rowCount();
 

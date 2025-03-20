@@ -16,20 +16,21 @@ if (isset($_GET["match"]) && isset($_GET['id'])) {
                     $match = $getMatch->fetch();
 
                     if ($match['winner'] == $gBet['choice']) {
-                        switch ($match['winner']) {
-                            case 0:
-                                $bet = $gBet['bet'] * $match['coef_teamA'];
-                                break;
-                            case 1:
-                                $bet = $gBet['bet'] * $match['coef_teamB'];
-                                break;
-                            case 2:
-                                $bet = $gBet['bet'] * $match['coef_equal'];
-                                break;
-                            default:
-                                $bet = 0;
-                                break;
-                        }
+                        $bet = $gBet['bet'] * $gBet['odds'];
+                        // switch ($match['winner']) {
+                        //     case 0:
+                                
+                        //         break;
+                        //     case 1:
+                        //         $bet = $gBet['bet'] * $match['coef_teamB'];
+                        //         break;
+                        //     case 2:
+                        //         $bet = $gBet['bet'] * $match['coef_equal'];
+                        //         break;
+                        //     default:
+                        //         $bet = 0;
+                        //         break;
+                        // }
     
                         $updateMoney = $db->prepare('UPDATE users SET credits = ? WHERE id = ?');
                         $updateMoney->execute(array($_SESSION['user_credits'] + $bet, $_SESSION['user_id']));

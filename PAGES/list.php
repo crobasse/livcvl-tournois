@@ -1,6 +1,6 @@
 <?php
 
-$getMatchs = $db->query("SELECT * FROM matchs ORDER BY date DESC");
+$getMatchs = $db->query("SELECT * FROM matchs ORDER BY date ASC");
 $getMatchs->execute();
 
 $matchs = $getMatchs->fetchAll();

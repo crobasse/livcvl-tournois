@@ -1,7 +1,5 @@
 <?php
 
-include "functions.php";
-
 if (isset($_POST["bChoice"]) && isset($_POST['bet']) && isset($_SESSION['match_id'])) {
     $bChoice = intval($_POST["bChoice"]);
     $bet = abs(intval($_POST['bet']));

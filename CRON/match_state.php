@@ -1,6 +1,6 @@
 <?php
 
-include "/home/u478818357/public_html/PHP/database.php";
+include "/home/u160780608/public_html/PHP/database.php";
 global $db;
 
 date_default_timezone_set('Europe/Paris');
@@ -16,7 +16,7 @@ if ($count > 0) {
     echo "0 Match Updated";
 }
 
-$file = '/home/u478818357/public_html/CRON/log.txt';
+$file = '/home/u160780608/public_html/CRON/log.txt';
 file_put_contents($file, date("Y-m-d H:i:s") . ";" . $count . "\n", FILE_APPEND | LOCK_EX);
 echo "\n\r" . date("Y-m-d H:i:s");  
 

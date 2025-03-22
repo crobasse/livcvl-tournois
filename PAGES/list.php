@@ -13,7 +13,6 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
 
 
 <title>Accueil - LIV</title>
-<link rel="stylesheet" href="CSS/matchs.css">
 <div class="container">
 
     <h1 class="mt-3 mb-3">Liste des matchs</h1>
@@ -53,14 +52,25 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
             ?>
             <div class="accordion-item <?= $accordionStatus; ?>">
                 <h2 class="accordion-header">
-                    <button class="accordion-button focus-ring <?php if ($id > 0)
-                        echo "collapsed"; ?>" type="button" data-bs-toggle="collapse"
+                    <button class="accordion-button focus-ring collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse<?= $id; ?>" aria-expanded="true" aria-controls="collapseOne">
-                        <?= $match["teamA"]; ?> vs <?= $match["teamB"]; ?>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2">
+                                    <?= $date->format("d/m"); ?>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <?= $match["teamA"]; ?>
+                                </div>
+                                <div class="col-2 text-center">vs</div>
+                                <div class="col-4">
+                                    <?= $match["teamB"]; ?>
+                                </div>
+                            </div>
+                        </div>
                     </button>
                 </h2>
-                <div id="collapse<?= $id; ?>" class="accordion-collapse collapse <?php if ($id == 0)
-                      echo "show"; ?>" data-bs-parent="#accordionExample">
+                <div id="collapse<?= $id; ?>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="container">
                             <div class="row align-items-center">
@@ -109,7 +119,7 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
 
                                         if ($match["status"] == 0) {
                                             if (checkConnected()) {
-                                                if (hasPlayerPlayed($_SESSION["id"], $match["id"])) {
+                                                if (hasPlayerPlayed($_SESSION["user_id"], $match["id"])) {
                                                     ?>
                                                     <div class="col">
                                                         <h4 class="align-center">

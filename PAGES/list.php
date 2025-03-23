@@ -40,7 +40,7 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
         </div>
     </div>
 
-    <div class="accordion" id="accordionExample">
+    <div class="accordion mb-4" id="accordionExample">
         <?php
 
         foreach ($matchs as $id => $match) {
@@ -141,7 +141,7 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
 
                                 if ($match["status"] == 0) {
                                     ?>
-                                    <div class="col align-center mt-3 mt-sm-0">
+                                    <div class="col border-start align-center mt-3 mt-sm-0">
                                         <div class="row">
                                             <?php
                                             if (checkConnected()) {

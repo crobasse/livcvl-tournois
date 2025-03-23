@@ -5,6 +5,7 @@ setlocale(LC_ALL, 'fr_FR');
 ?>
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/accordion.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <body data-bs-theme="dark">
     <script src="JS/app.js"></script>
@@ -30,8 +31,25 @@ setlocale(LC_ALL, 'fr_FR');
         }
     } else {
         include "PAGES/list.php";
+        if (isset($_GET["modal"])) {
+            if ($_GET["modal"] == "login") {
+                ?>
+                <script>
+                    var loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {})
+                    loginModal.toggle()
+                </script>
+                <?php
+            }
+        }
     }
 
     ?>
     <script src="https://kit.fontawesome.com/f1ce168fe5.js" crossorigin="anonymous"></script>
+    <script>
+        window.addEventListener('hide.bs.modal', () => {
+            if (document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
+        });
+    </script>
 </body>

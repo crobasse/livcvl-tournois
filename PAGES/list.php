@@ -15,7 +15,30 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
 <title>Accueil - LIV</title>
 <div class="container">
 
-    <h1 class="mt-3 mb-3">Liste des matchs</h1>
+    <h1 class="mt-4 mb-3">Liste des matchs</h1>
+
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-lg">
+                <div class="row">
+                    <div class="col"><i class="bi bi-circle-fill" style="color: var(--bs-primary-bg-subtle)"></i>
+                        Planifié</div>
+                    <div class="col"><i class="bi bi-circle-fill" style="color: var(--bs-warning-bg-subtle)"></i> En
+                        cours
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="row">
+                    <div class="col"><i class="bi bi-circle-fill" style="color: var(--bs-success-bg-subtle)"></i>
+                        Terminé
+                    </div>
+                    <div class="col"><i class="bi bi-circle-fill" style="color: var(--bs-danger-bg-subtle)"></i>
+                        Reporté/Annulé</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="accordion" id="accordionExample">
         <?php
@@ -113,11 +136,14 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col align-center mt-3 mt-sm-0">
-                                    <div class="row">
-                                        <?php
 
-                                        if ($match["status"] == 0) {
+                                <?php
+
+                                if ($match["status"] == 0) {
+                                    ?>
+                                    <div class="col align-center mt-3 mt-sm-0">
+                                        <div class="row">
+                                            <?php
                                             if (checkConnected()) {
                                                 if (hasPlayerPlayed($_SESSION["user_id"], $match["id"])) {
                                                     ?>
@@ -135,30 +161,38 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
                                                         </h4>
                                                     </div>
                                                     <div class="col">
-                                                        <button type="button" href="" class="btn bg-body-tertiary">
+                                                        <a type="button" href="?page=play&match=<?= $match["id"]; ?>"
+                                                            class="btn bg-body-tertiary">
                                                             Cliquez ici !
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                     <?php
                                                 }
                                             } else {
                                                 ?>
                                                 <div class="col">
-                                                    <h4 class="align-center">
-                                                        Envie de jouer ?
-                                                    </h4>
-                                                </div>
-                                                <div class="col">
-                                                    <a type="button" href="?page=login" class="btn bg-body-tertiary">
-                                                        Connectez-vous !
-                                                    </a>
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <h4 class="align-center">
+                                                                Envie de jouer ?
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <a type="button" href="?modal=login" class="btn bg-body-tertiary">
+                                                                Connectez-vous !
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <?php
                                             }
-                                        }
-                                        ?>
+                                            ?>
+                                        </div>
                                     </div>
-                                </div>
+                                    <?php
+                                }
+                                ?>
+
                             </div>
                         </div>
                     </div>

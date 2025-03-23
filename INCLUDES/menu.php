@@ -5,6 +5,9 @@ $GLOBALS['VERSION'] = "Beta v1.0";
 include "PHP/required.php";
 session_start();
 
+include_once "MODALS/LoginModal.php";
+include_once "MODALS/RegisterModal.php";
+
 // if (session_status() === PHP_SESSION_NONE){session_start();}
 // $_SESSION = array();
 // session_destroy();
@@ -18,14 +21,35 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="IMGS/logo.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
 
 </head>
 
 <body>
-
+    <div class="modal fade" id="rulesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Règles du Tournois</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p> - Les matchs dureront 20 minutes, 10 minutes par mi-temps et 3-4 minutes de pause entre les
+                        deux.</p>
+                    <p> - Les Hors-Jeu flagrant devronts êtres signalés.</p>
+                    <p> - Tous les joueurs devront respecter les horaires des matchs.</p>
+                    <p> - Tout retard dû aux matchs pour la reprise des cours, entraînera l'annulation du tournois.</p>
+                    <p> - Tous les élèves devront récupérer leurs déchets et ne pas les laisser au bord du terrain.</p>
+                    <p> - On compte sur le fair play des classes pour que le tournoi se passe dans de bonnes conditions.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <img src="IMGS/logo.png" alt="Logo" height="50" class="d-inline-block align-text-top me-3">
@@ -40,17 +64,24 @@ session_start();
                         <a class="nav-link" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=rules">Règles</a>
+                        <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#rulesModal">
+                            Règlement
+                        </button>
                     </li>
                     <?php
 
                     if (checkConnected()) {
                         ?>
+                        <script>const playerMoney = <?= $_SESSION['user_credits']; ?></script>
                         <li class="nav-item">
                             <a class="nav-link" href="?page=profile">Mon Profil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="?action=logout">Déconnexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"><?php echo number_format($_SESSION['user_credits'], 0, ",", " "); ?> <i
+                                    class="bi bi-coin"></i></a>
                         </li>
                         <?php
 
@@ -64,10 +95,15 @@ session_start();
                     } else {
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="?page=signin">S'inscrire</a>
+                            <button type="button" class="btn nav-link" data-bs-toggle="modal"
+                                data-bs-target="#registerModal">
+                                S'inscrire
+                            </button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?page=login">Se Connecter</a>
+                            <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Se connecter
+                            </button>
                         </li>
                         <?php
                     }
@@ -77,9 +113,7 @@ session_start();
         </div>
     </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+
 </body>
 
 </html>

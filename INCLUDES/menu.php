@@ -45,7 +45,7 @@ include_once "MODALS/RegisterModal.php";
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">J'ai compris</button>
                 </div>
             </div>
         </div>

@@ -9,12 +9,12 @@ if (!checkConnected()) {
 
 
 <div class="container">
-    <div class="row mt-4">
+    <div class="row mt-4 ">
         <div class="col">
-            <div class="card bg-body-tertiary">
+            <div class="card bg-body-tertiary pt-2 pb-2">
                 <div class="container">
-                    <div class="row mt-2 mb-2">
-                        <h1>Votre profil:</h1>
+                    <div class="row ">
+                        <h1>Votre profil</h1>
                     </div>
                 </div>
             </div>

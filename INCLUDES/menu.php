@@ -63,7 +63,7 @@ include_once "MODALS/RegisterModal.php";
     </div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <img src="IMGS/logo.png" alt="Logo" height="50" class="d-inline-block align-text-top me-3">
+            <img src="IMGS/logo.png" id="menu-logo" alt=" Logo" height="50" class="d-inline-block align-text-top me-3">
             <a class="navbar-brand" href="index.php">LIV CVL - Football</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,8 +119,17 @@ include_once "MODALS/RegisterModal.php";
                         <?php
                     }
                     ?>
+                    <li>
+                        <div class="form-check form-switch ms-lg-5">
+
+                            <label class="form-check-label nav-link" for="switchTheme"><input class="form-check-input"
+                                    type="checkbox" role="switch" id="switchTheme">Dark Mode</label>
+                        </div>
+                    </li>
                 </ul>
+
             </div>
+
         </div>
     </nav>
 

@@ -6,8 +6,10 @@ setlocale(LC_ALL, 'fr_FR');
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/accordion.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="shortcut icon" href="IMGS/favicon.ico" type="image/x-icon">
 
-<body data-bs-theme="dark">
+
+<body data-bs-theme="light">
     <script src="JS/app.js"></script>
     <?php
 

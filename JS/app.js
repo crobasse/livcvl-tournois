@@ -1,22 +1,34 @@
-var changer = document.getElementById("color");
+const switchTheme = document.getElementById("switchTheme");
+const menuLogo = document.getElementById("menu-logo");
 
-if (changer != null) {
-    changer.addEventListener("change", function (){
-        if (changer.checked) {
-            document.documentElement.style.setProperty("--main-forecolor", "#101d46")
-            document.documentElement.style.setProperty("--menu-backcolor-secondary", "#81848f")
-        }else{
-            document.documentElement.style.setProperty("--main-forecolor", "#831113")
-            document.documentElement.style.setProperty("--menu-backcolor-secondary", "#9b6464")
-        }
-    })
+if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  document.body.setAttribute("data-bs-theme", "dark");
+  switchTheme.checked = true;
+  menuLogo.setAttribute("src", "IMGS/logo.png");
+} else {
+  document.body.setAttribute("data-bs-theme", "light");
+  switchTheme.checked = false;
+  menuLogo.setAttribute("src", "IMGS/logo_dark.png");
 }
 
-function badid(text){
-    var badidItem = document.getElementById("bad-id");
-    badidItem.style.color = "red";
-
-    if (text != null) {
-        badidItem.textContent = text
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", (event) => {
+    if (event.matches) {
+      document.body.setAttribute("data-bs-theme", "dark");
+      menuLogo.setAttribute("src", "IMGS/logo.png");
+    } else {
+      document.body.setAttribute("data-bs-theme", "light");
+      menuLogo.setAttribute("src", "IMGS/logo_dark.png");
     }
-}
+  });
+
+switchTheme.addEventListener("change", () => {
+  if (switchTheme.checked) {
+    document.body.setAttribute("data-bs-theme", "dark");
+    menuLogo.setAttribute("src", "IMGS/logo.png");
+  } else {
+    document.body.setAttribute("data-bs-theme", "light");
+    menuLogo.setAttribute("src", "IMGS/logo_dark.png");
+  }
+});

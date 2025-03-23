@@ -20,8 +20,8 @@ if (!checkConnected()) {
             </div>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="col-md-6 col-12">
+    <div class="row mt-4 ">
+        <div class="col-md-6 col-12 mb-md-4">
             <div class="card bg-body-tertiary pt-2 pb-3">
                 <div class="container">
                     <div class="row mt-2 mb-2">
@@ -102,7 +102,7 @@ if (!checkConnected()) {
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-12 mt-md-0 mt-4">
+        <div class="col-md-6 col-12 mt-md-0 mt-4 mb-md-0 mb-4">
             <div class="card bg-body-tertiary pb-3">
                 <div class="container">
                     <div class="row mt-2 mb-2">

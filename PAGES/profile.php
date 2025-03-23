@@ -121,28 +121,6 @@ if (!checkConnected()) {
                                     $getMatch = $db->prepare('SELECT * FROM matchs WHERE id = ?');
                                     $getMatch->execute(array($value['match_id']));
                                     $match = $getMatch->fetch();
-
-                                    $txtStatus = '';
-                                    switch ($match["status"]) {
-                                        case 0:
-                                            $txtStatus = "<span class='text-primary-emphasis'>Planifié</span>";
-                                            break;
-                                        case 1:
-                                            $txtStatus = "<span class='text-warning'>En cours</span>";
-                                            break;
-                                        case 2:
-                                            $txtStatus = "<span class='text-success'>Terminé</span>";
-                                            break;
-                                        case 3:
-                                            $txtStatus = "<span class='text-danger-emphasis'>Reporté</span>";
-                                            break;
-                                        case 4:
-                                            $txtStatus = "<span class='text-danger'>Annulé</span>";
-                                            break;
-                                        default:
-                                            $txtStatus = "<span class='text-danger'>Inconnu</span>";
-                                            break;
-                                    }
                                     ?>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
@@ -183,8 +161,29 @@ if (!checkConnected()) {
                                                 </div>
                                                 <div class="bet-line">
                                                     <b>Etat: </b><label>
-                                                        <?= $txtStatus; ?>
+                                                        <?php
+
+                                                        switch ($value['status']) {
+                                                            case 0:
+                                                                echo "En Attente...";
+                                                                break;
+                                                            case 1:
+                                                                echo '<span class="state-lost">Perdu</span>';
+                                                                break;
+                                                            case 2:
+                                                                echo '<a href="?action=get&match=' . $value['match_id'] . '&id=' . $_SESSION['user_id'] . '" class="state-won">Cliquez pour récupérer</a>';
+                                                                break;
+                                                            case 3:
+                                                                echo '<span class="state-got">Récupéré</span>';
+                                                                break;
+                                                            default:
+                                                                echo "Error";
+                                                                break;
+                                                        }
+
+                                                        ?>
                                                     </label>
+
                                                 </div>
                                             </div>
                                         </div>

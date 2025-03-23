@@ -35,14 +35,25 @@ include_once "MODALS/RegisterModal.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p> - Les matchs dureront 20 minutes, 10 minutes par mi-temps et 3-4 minutes de pause entre les
-                        deux.</p>
-                    <p> - Les Hors-Jeu flagrant devronts êtres signalés.</p>
-                    <p> - Tous les joueurs devront respecter les horaires des matchs.</p>
-                    <p> - Tout retard dû aux matchs pour la reprise des cours, entraînera l'annulation du tournois.</p>
-                    <p> - Tous les élèves devront récupérer leurs déchets et ne pas les laisser au bord du terrain.</p>
-                    <p> - On compte sur le fair play des classes pour que le tournoi se passe dans de bonnes conditions.
+                    <p> - Le règlement du football de base s’applique, seuls les hors jeux flagrant sont comptés comme
+                        tel.</p>
+                    <p> - Une équipe est constituée au minimum de 8 élèves d’une même classe, le tournoi est mixte.</p>
+                    <p> - Chaque équipe se doit de ramener SA balle pour jouer le match</p>
+                    <p> - Chaque match commence à 12h45. Si une des 2 équipes n’est pas présente, soit vous jouez avec
+                        le nombre de joueur présent sur le moment soit c’est forfait : équivalent à un score de 2-0. Un
+                        match se déroule en 2 mi-temps de 12 minutes chacune. Pour les secondes, les matchs se déroulent
+                        sur le petit terrain. De plus, chaque match doit se terminer à 13h15 peu importe le déroulement.
                     </p>
+                    <p> - Les cartons peuvent être utilisé : 2 jaunes = 1 rouge. Les sanctions encourues pour un carton
+                        rouge</p>
+                    <p> - diffèrent en fonction de la faute commise. Dans tous les cas, le joueur est expulsé et
+                        l’équipe joue avec un joueur en moins le reste du match.</p>
+                    <p> - Un match gagné, nul ou perdu valent respectivement 3, 1 et 0 points. En cas d’égalité de
+                        points dans une poule la qualification se fera au goal average.</p>
+                    <p> - Pour l’équipement, les crampons en fers et les vissés ne sont pas autorisés.</p>
+                    <p> - En cas d’impossibilité de jouer un match il faut impérativement prévenir le CVL au moins 48H à
+                        l’avance, dans le cas contraire : forfait.</p>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">J'ai compris</button>

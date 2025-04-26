@@ -189,7 +189,7 @@ if (isset($_POST['submit-end'])) {
                                 <select class="form-select" name="match-select" id="match-select">
                                     <?php
 
-                                    $getPlayingMatchs = $db->query('SELECT * FROM matchs WHERE status = 1');
+                                    $getPlayingMatchs = $db->query('SELECT * FROM matchs WHERE status = 1 ORDER BY date ASC');
                                     $getPlayingMatchs->execute();
 
                                     $pMatchs = $getPlayingMatchs->fetchAll();

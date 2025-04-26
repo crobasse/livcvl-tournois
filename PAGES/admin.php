@@ -58,106 +58,175 @@ if (isset($_POST['submit-end'])) {
     }
 }
 ?>
+
+
 <title>Administration - UNI</title>
 <link rel="stylesheet" href="CSS/admin.css">
+
 <div class="container">
-    <h1>Page d'Administration</h1>
-    <div class="parts">
-        <div class="part">
-            <h2>Matchs</h2>
-            <div class="subparts">
-                <form class="createMatch subpart" method="post">
-                    <h3>Créer un nouveau match</h3>
-                    <div class="field">
-                        <b>Équipe A</b>
-                        <div>
-                            <i class="fa-solid fa-people-group"></i>
-                            <input type="text" name="teamA" id="teamA" placeholder="Entrez la classe de l'équipe A">
+    <div class="row mt-4 ">
+        <div class="col">
+            <div class="card bg-body-tertiary pt-2 pb-2">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-auto align-items-center">
+                            <h1>Administration</h1>
                         </div>
                     </div>
-                    <div class="field">
-                        <b>Équipe B</b>
-                        <div>
-                            <i class="fa-solid fa-people-group"></i>
-                            <input type="text" name="teamB" id="teamB" placeholder="Entrez la classe de l'équipe B">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 col-12">
+            <div class="card bg-body-tertiary mt-4">
+                <form method="post">
+                    <div class="container">
+                        <div class="row mt-2 mb-2">
+                            <h3>Créer un nouveau match</h3>
                         </div>
-                    </div>
-                    <div class="field">
-                        <b>Date</b>
-                        <div>
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <input type="date" name="date" id="date" placeholder="Entrez la date du match">
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="addon-teamA"><i
+                                        class="fa-solid fa-people-group"></i></span>
+                                <input type="text" class="form-control" name="teamA" id="teamA" placeholder="Équipe A"
+                                    aria-label="Equipe A" aria-describedby="addon-teamA">
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="addon-teamB"><i
+                                        class="fa-solid fa-people-group"></i></span>
+                                <input type="text" class="form-control" name="teamB" id="teamB" placeholder="Équipe B"
+                                    aria-label="Equipe B" aria-describedby="addon-teamB">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="addon-date">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                </span>
+                                <input type="date" data-date-format="DD MMMM YYYY" class="form-control"
+                                    placeholder="Date" name="date" id="date" aria-label="Date"
+                                    aria-describedby="addon-date">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto align-self-center">
+                                <input type="submit" class="btn btn-primary" name="submit-create" id="submit-create"
+                                    value="Créer">
+                            </div>
+                        </div>
+
                     </div>
-                    <input type="submit" name="submit-create" id="submit-create" value="Créer">
                 </form>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="col-md-6 col-lg-4 col-12">
+            <div class="card bg-body-tertiary mt-4">
                 <form class="statusMatch subpart" method="post">
-                    <h3>Modifier un match existant</h3>
-                    <div>
-                        <label for="match-select"><b>Choisissez un match</b></label>
-                        <select name="match-select" id="match-select">
-                            <?php
+                    <div class="container">
+                        <div class="row mt-2 mb-2">
+                            <h3>Modifier un match existant</h3>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="match-select"><b>Match</b></label>
+                                <select class="form-select" name="match-select" id="match-select">
+                                    <?php
 
-                            $getMatchs = $db->query('SELECT * FROM matchs WHERE status != 2 ORDER BY date ASC');
-                            $getMatchs->execute();
+                                    $getMatchs = $db->query('SELECT * FROM matchs WHERE status != 2 ORDER BY date ASC');
+                                    $getMatchs->execute();
 
-                            $matchs = $getMatchs->fetchAll();
+                                    $matchs = $getMatchs->fetchAll();
+                                    foreach ($matchs as $match) {
+                                        $date = new DateTimeImmutable($match["date"]);
+                                        echo '<option value="' . $match['id'] . '">' . $match['teamA'] . ' - ' . $match['teamB'] . '   =>   ' . $date->format("d/m") . '</option>';
+                                    }
 
-                            foreach ($matchs as $match) {
-                                echo '<option value="' . $match['id'] . '">' . $match['teamA'] . ' - ' . $match['teamB'] . '</option>';
-                            }
-
-                            ?>
-                        </select>
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="state-select"><b>État</b></label>
+                                <select class="form-select" name="state-select" id="state-select">
+                                    <option value="0">Planifié</option>
+                                    <option value="1">En cours</option>
+                                    <option value="3">Reporté</option>
+                                    <option value="4">Annulé</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto align-self-center">
+                                <input type="submit" class="btn btn-primary" name="submit-edit" id="submit-edit"
+                                    value="Modifier le match">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="state-select"><b>Choisissez un état</b></label>
-                        <select name="state-select" id="state-select">
-                            <option value="0">Planifié</option>
-                            <option value="1">En cours</option>
-                            <option value="3">Reporté</option>
-                            <option value="4">Annulé</option>
-                        </select>
-                    </div>
-                    <input type="submit" name="submit-edit" id="submit-edit" value="Modifier le match">
                 </form>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 col-lg-4 col-12">
+            <div class="card bg-body-tertiary mt-4">
                 <form class="endMatch subpart" method="post">
-                    <h3>Mettre fin à un match existant</h3>
-                    <div>
-                        <label for="match-select"><b>Choisissez un match</b></label>
-                        <select name="match-select" id="match-select">
-                            <?php
+                    <div class="container">
+                        <div class="row mt-2 mb-2">
+                            <h3>Terminer un match existant</h3>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="match-select"><b>Match</b></label>
+                                <select class="form-select" name="match-select" id="match-select">
+                                    <?php
 
-                            $getPlayingMatchs = $db->query('SELECT * FROM matchs WHERE status = 1');
-                            $getPlayingMatchs->execute();
+                                    $getPlayingMatchs = $db->query('SELECT * FROM matchs WHERE status = 1');
+                                    $getPlayingMatchs->execute();
 
-                            $pMatchs = $getPlayingMatchs->fetchAll();
+                                    $pMatchs = $getPlayingMatchs->fetchAll();
 
-                            foreach ($pMatchs as $match) {
-                                echo '<option value="' . $match['id'] . '">' . $match['teamA'] . ' - ' . $match['teamB'] . '</option>';
-                            }
+                                    foreach ($pMatchs as $match) {
+                                        $date = new DateTimeImmutable($match["date"]);
+                                        echo '<option value="' . $match['id'] . '">' . $match['teamA'] . ' - ' . $match['teamB'] . '   =>   ' . $date->format("d/m") . '</option>';
+                                    }
 
-                            ?>
-                        </select>
-                        <div class="field">
-                            <b>Points Équipe A</b>
-                            <div>
-                                <i class="fa-solid fa-people-group"></i>
-                                <input type="number" name="teamA" id="teamA"
-                                    placeholder="Entrez les points de l'équipe A">
+                                    ?>
+                                </select>
                             </div>
                         </div>
-                        <div class="field">
-                            <b>Points Équipe B</b>
-                            <div>
-                                <i class="fa-solid fa-people-group"></i>
-                                <input type="number" name="teamB" id="teamB"
-                                    placeholder="Entrez les points de l'équipe B">
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="teamA"><b>Équipe A</b></label>
+                                <input type="number" class="form-control" inputmode="decimal" name="teamA" id="teamA"
+                                    placeholder="Points de l'équipe A" aria-label="Points Équipe A"
+                                    aria-describedby="addon-teamA">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="teamB"><b>Équipe B</b></label>
+                                <input type="number" class="form-control" inputmode="decimal" name="teamB" id="teamB"
+                                    placeholder="Points de l'équipe B" aria-label="Points Équipe B"
+                                    aria-describedby="addon-teamB">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto align-self-center">
+                                <input type="submit" class="btn btn-primary" name="submit-end" id="submit-end"
+                                    value="Terminer le match">
+                            </div>
 
+                        </div>
                     </div>
-                    <input type="submit" name="submit-end" id="submit-end" value="Terminer le match">
                 </form>
             </div>
         </div>

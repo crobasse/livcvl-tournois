@@ -13,8 +13,17 @@ if (!checkConnected()) {
         <div class="col">
             <div class="card bg-body-tertiary pt-2 pb-2">
                 <div class="container">
-                    <div class="row ">
-                        <h1>Votre profil</h1>
+                    <div class="row align-middle align-items-center">
+                        <div class="col align-middle align-items-center">
+                            <div class="row align-items-center">
+                                <h1>Votre profil: </h1>
+                            </div>
+                        </div>
+                        <div class="col align-middle align-items-center">
+                            <div class="row align-items-center">
+                                <h2><?= $_SESSION['user_fname']; ?> <?= $_SESSION['user_lname']; ?></h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,11 +102,12 @@ if (!checkConnected()) {
                             </div>
                         </div>
                     </form>
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <input type="submit" form="profileForm" id="submit" name="submit" class="btn btn-primary"
-                                value="Sauvegarder les modifications">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-auto align-self-center">
+                            <button type="submit" class="btn btn-primary" id="submit" name="submit"
+                                form="profileForm">Sauvegarder les modifications</button>
                         </div>
+
                     </div>
                 </div>
             </div>

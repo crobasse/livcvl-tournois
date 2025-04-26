@@ -120,7 +120,7 @@ if (isset($_GET["match"])) {
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-coin"></i></span>
                                         <input type="number" class="form-control" name="bet" id="bet"
-                                            placeholder="Entrez la mise à parier" value="0" min="0"
+                                            placeholder="Entrez la mise à parier" inputmode="decimal" value="0" min="0"
                                             max="<?= $_SESSION['user_credits']; ?>">
                                     </div>
                                 </div>

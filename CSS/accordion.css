@@ -15,3 +15,9 @@
   background-color: var(--bs-danger-bg-subtle);
   --bs-focus-ring-color: rgba(var(--bs-danger-rgb), 0.25);
 }
+
+.accordion-item.accordion-primary > .accordion-header > .accordion-button {
+  color: var(--bs-body-color);
+  background-color: var(--bs-primary-bg-subtle);
+  --bs-focus-ring-color: rgba(var(--bs-primary-rgb), 0.25);
+}

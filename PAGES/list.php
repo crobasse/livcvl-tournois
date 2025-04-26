@@ -22,7 +22,7 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
             <div class="col-lg">
                 <div class="row">
                     <div class="col"><i class="bi bi-circle-fill" style="color: var(--bs-primary-bg-subtle)"></i>
-                        Planifié</div>
+                        Déjà joué</div>
                     <div class="col"><i class="bi bi-circle-fill" style="color: var(--bs-warning-bg-subtle)"></i> En
                         cours
                     </div>
@@ -49,6 +49,11 @@ $monthsOfYear = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet
             $accordionStatus = '';
             switch ($match["status"]) {
                 case 0:
+                    if (checkConnected()) {
+                        if (hasPlayerPlayed($_SESSION["user_id"], $match["id"])) {
+                            $accordionStatus = 'accordion-primary';
+                        }
+                    }
                     $txtStatus = "<span class='text-primary-emphasis'>Planifié</span>";
                     break;
                 case 1:

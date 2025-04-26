@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-function get_base_url() {
+function get_base_url()
+{
 
     $protocol = filter_input(INPUT_SERVER, 'HTTPS');
     if (empty($protocol)) {
@@ -13,8 +14,7 @@ function get_base_url() {
     $last_slash_pos = strrpos($request_uri_full, "/");
     if ($last_slash_pos === FALSE) {
         $request_uri_sub = $request_uri_full;
-    }
-    else {
+    } else {
         $request_uri_sub = substr($request_uri_full, 0, $last_slash_pos + 1);
     }
 
@@ -22,12 +22,16 @@ function get_base_url() {
 
 }
 
-function checkConnected(){
-   if (isset($_SESSION['user_id']) && isset($_SESSION['user_username']) && isset($_SESSION['user_email']) && isset($_SESSION['user_rank']) && isset($_SESSION['user_secured'])) return true;
-   else return false;
+function checkConnected()
+{
+    if (isset($_SESSION['user_id']) && isset($_SESSION['user_username']) && isset($_SESSION['user_email']) && isset($_SESSION['user_rank']) && isset($_SESSION['user_secured']))
+        return true;
+    else
+        return false;
 }
 
-function cotesMatch($id){
+function cotesMatch($id)
+{
     global $db;
     $getMatchs = $db->prepare("SELECT * FROM bets WHERE match_id = ? AND choice = ?");
     $getMatchs->execute(array($id, 0));
@@ -35,19 +39,32 @@ function cotesMatch($id){
 
     $getMatchs->execute(array($id, 1));
     $cB = $getMatchs->rowCount();
-    
+
     $getMatchs->execute(array($id, 2));
     $cN = $getMatchs->rowCount();
 
-    $CA = 1/(($cA + 1)/ ($cA + $cB + $cN + 3));
-    $CB = 1 /(($cB + 1) / ($cA + $cB + $cN + 3));
-    $CN = 1/(($cN + 1)/ ($cA + $cB + $cN + 3));
+    $CA = 1 / (($cA + 1) / ($cA + $cB + $cN + 3));
+    $CB = 1 / (($cB + 1) / ($cA + $cB + $cN + 3));
+    $CN = 1 / (($cN + 1) / ($cA + $cB + $cN + 3));
 
-    $CA = round($CA,2);
-    $CB = round($CB,2);
-    $CN = round($CN,2);
+    $CA = round($CA, 2);
+    $CB = round($CB, 2);
+    $CN = round($CN, 2);
 
-    return array($CA,$CB, $CN);
+    return array($CA, $CB, $CN);
+}
+
+function hasPlayerPlayed($playerId, $matchId)
+{
+    global $db;
+    $getBets = $db->prepare("SELECT * FROM bets WHERE player_id = ? AND match_id = ?");
+    $getBets->execute(array($playerId, $matchId));
+    if ($getBets->rowCount() > 0)
+        return true;
+    else
+        return false;
+
+
 }
 
 ?>

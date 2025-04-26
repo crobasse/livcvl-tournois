@@ -1,0 +1,23 @@
+.team-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bs-tertiary-bg);
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+}
+
+.bet-option > input {
+  display: none;
+}
+
+.card:has(.bet-option > input:checked) {
+  background-color: var(--bs-secondary-bg);
+  transition: all 0.1s ease-in-out;
+}
+
+.rotate-90 {
+  transform-origin: left;
+  transform: rotate(90deg);
+}

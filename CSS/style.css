@@ -1,0 +1,12 @@
+* {
+  outline: none;
+  user-select: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.pointer {
+  cursor: pointer;
+}
